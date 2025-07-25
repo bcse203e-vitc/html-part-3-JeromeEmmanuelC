@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Booking Form</title>
+    <script>
+        function calculateCost() {
+            const travelers = parseInt(document.getElementById("travelers").value) || 0;
+            let costPerPerson = 0;
+
+            if (document.getElementById("economy").checked) {
+                costPerPerson = 2000;
+            } else if (document.getElementById("business").checked) {
+                costPerPerson = 5000;
+            } else if (document.getElementById("first").checked) {
+                costPerPerson = 8000;
+            }
+
+            const totalCost = travelers * costPerPerson;
+            document.getElementById("total-cost").value = totalCost ? "₹" + totalCost : "";
+        }
+    </script>
+</head>
+<body>
+    <h1>Book Your Travel</h1>
+    <form action="/book-travel" method="post">
+
+        <label for="fullname">Full Name:</label><br>
+        <input type="text" id="fullname" name="fullname" required><br><br>
+
+        <label for="contact">Contact Information:</label><br>
+        <input type="text" id="contact" name="contact" required><br><br>
+
+        <label for="destination">Destination:</label><br>
+        <select id="destination" name="destination">
+            <option value="delhi">Delhi</option>
+            <option value="goa">Goa</option>
+            <option value="manali">Manali</option>
+            <option value="kerala">Kerala</option>
+        </select><br><br>
+
+
+        <label for="travel-date">Travel Date:</label><br>
+        <input type="date" id="travel-date" name="travel-date" required><br><br>
+
+
+        <label for="travelers">Number of Travelers:</label><br>
+        <input type="number" id="travelers" name="travelers" min="1" required oninput="calculateCost()"><br><br>
+
+
+        <label>Travel Class:</label><br>
+        <input type="radio" id="economy" name="class" value="Economy" onclick="calculateCost()"> Economy (₹2000)<br>
+        <input type="radio" id="business" name="class" value="Business" onclick="calculateCost()"> Business (₹5000)<br>
+        <input type="radio" id="first" name="class" value="First Class" onclick="calculateCost()"> First Class (₹8000)<br><br>
+
+
+        <input type="checkbox" id="insurance" name="insurance">
+        <label for="insurance">Add Travel Insurance</label><br><br>
+
+
+        <label for="total-cost">Total Cost:</label><br>
+        <input type="text" id="total-cost" name="total-cost" readonly><br><br>
+
+
+        <button type="submit">Book Now</button>
+    </form>
+</body>
+</html>
